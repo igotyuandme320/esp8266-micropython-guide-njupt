@@ -7,7 +7,7 @@
 从零开始使用 VS Code + MicroPico 插件开发 ESP8266（ESP-12F）的教程。
 
 > 📚 **[查看完整github仓库](https://github.com/igotyuandme320/esp8266-micropython-guide-njupt/tree/master)**
- 📮 **邮箱：itzyylc@outlook.com**
+ 📮 **邮箱：itzyylc@outlook.com **
 
 ---
 
@@ -35,7 +35,7 @@ macOS 的安全机制有时会拦截非 App Store 的应用。
 - 推荐版本：Python 3.10+
 
 ### 3. 安装 esptool
-
+打开终端（terminal）输入
 ```bash
 pip install esptool
 ```
