@@ -1,24 +1,10 @@
-# 南京邮电大学ESP8266 MicroPython 开发指南（MAC）
+# 南京邮电大学ESP8266 MicroPython 开发指南（适用于MAC完成电工电子实践课程）
 
 [![MicroPython](https://img.shields.io/badge/MicroPython-3.4+-green.svg)](https://micropython.org/)
 [![ESP8266](https://img.shields.io/badge/ESP8266-ESP--12F-blue.svg)](https://www.espressif.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 从零开始使用 VS Code + MicroPico 插件开发 ESP8266（ESP-12F）的完整教程。
-
-## 📋 目录
-
-- [软件安装](#软件安装)
-- [刷入固件](#刷入固件)
-- [VS Code 配置](#vs-code-配置)
-- [项目结构](#项目结构)
-- [快速开始](#快速开始)
-- [示例代码](#示例代码)
-- [进阶功能](#进阶功能)
-- [常见问题](#常见问题)
-
-
-
 
 
 
@@ -105,7 +91,7 @@ esptool.py --port /dev/tty.usbserial-110 --baud 460800 write_flash --flash_size=
 
 1. 打开vscode
 2. 插入 USB
-3. 按快捷键 ``` **command + shift + p **```
+3. 按快捷键 ```   command + shift + p ```
 4. 在输入框中输入
 ```bash
    MicroPico: Connect
@@ -122,13 +108,14 @@ Type "help()" for more information or .help for custom vREPL commands.
 
 1.点击左上角文件图标的EXPLORER
 2.选择文件夹创建项目
-3.新建 **.py** 文件，编写代码
+3.新建   .py  文件，编写代码
 4.按command + s 保存文件
 5.右键文件选择
 ```bash
 Upload file to Pico        #载入文件
 Run current file on Pico   #运行文件                   
 ```
+6.REPL终端按下 ctrl + c 停止当前程序运行
 ---
 
 
@@ -140,19 +127,20 @@ Run current file on Pico   #运行文件
 
 ## 💡 示例代码
 
-### 示例 1：LED 闪烁
+### 示例 1：LED 闪烁（课程代码）
 
 ```python
-from machine import Pin
 import time
+from machine import Pin
 
-led = Pin(2, Pin.OUT)  # GPIO2，板载 LED
+led=Pin(4,Pin.OUT)        #建立LED对象，与GPIO4连接
 
 while True:
-    led.value(0)  # 点亮（低电平有效）
-    time.sleep(0.5)
-    led.value(1)  # 熄灭
-    time.sleep(0.5)
+  led.value(1)            #设置GPIO4为高电平
+  time.sleep(0.5)       #设置时间间隔
+  led.value(0)            #设置GPIO4为低电平
+  time.sleep(0.5)       #设置时间间隔
+
 ```
 
 ### 示例 2：WiFi 连接
