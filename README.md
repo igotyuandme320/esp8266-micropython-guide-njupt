@@ -6,6 +6,8 @@
 
 从零开始使用 VS Code + MicroPico 插件开发 ESP8266（ESP-12F）的完整教程。
 
+> 📚 **[查看 NJUPT 版本（南京邮电大学）](https://github.com/igotyuandme320/esp8266-micropython-guide-njupt/tree/master)**
+
 ## 📋 目录
 
 - [硬件准备](#硬件准备)
