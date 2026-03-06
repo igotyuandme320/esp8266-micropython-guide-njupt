@@ -1,4 +1,4 @@
-# ESP8266 MicroPython 开发指南
+# 南京邮电大学电工实践课程 ESP8266 MicroPython 开发指南（适用于MAC）
 
 [![MicroPython](https://img.shields.io/badge/MicroPython-3.4+-green.svg)](https://micropython.org/)
 [![ESP8266](https://img.shields.io/badge/ESP8266-ESP--12F-blue.svg)](https://www.espressif.com/)
@@ -10,50 +10,6 @@
 
 ## 📋 目录
 
-- [硬件准备](#硬件准备)
-- [接线图](#接线图)
-- [软件安装](#软件安装)
-- [刷入固件](#刷入固件)
-- [VS Code 配置](#vs-code-配置)
-- [项目结构](#项目结构)
-- [快速开始](#快速开始)
-- [示例代码](#示例代码)
-- [进阶功能](#进阶功能)
-- [常见问题](#常见问题)
-
----
-
-## 🔧 硬件准备
-
-| 物品 | 说明 |
-|------|------|
-| ESP-12F 模块 | ESP8266 核心模块 |
-| USB 转 TTL 模块 | CH340 或 CP2102 芯片 |
-| 杜邦线 | 母对母或公对母若干 |
-| 面包板（可选） | 方便接线 |
-
-**注意**：ESP-12F 工作电压为 **3.3V**，切勿使用 5V！
-
----
-
-## 🔌 接线图
-
-### 烧录模式接线
-
-```
-USB-TTL          ESP-12F
--------          -------
-TX        ---->  RX (GPIO3)
-RX        ---->  TX (GPIO1)
-GND       ---->  GND
-3.3V      ---->  VCC
-3.3V      ---->  EN (CH_PD)
-GND       ---->  GPIO0  (烧录时短接，运行时不接)
-```
-
-### 运行模式接线
-
-烧录完成后，**断开 GPIO0 和 GND 的连接**，重新上电即可运行程序。
 
 ---
 
@@ -63,12 +19,22 @@ GND       ---->  GPIO0  (烧录时短接，运行时不接)
 
 下载地址：https://code.visualstudio.com/
 
+macOS 的安全机制有时会拦截非 App Store 的应用。
+*   如果打开时提示“无法打开，因为无法验证开发者”，请尝试：
+    1.  打开 **系统设置** -> **隐私与安全性**。
+    2.  向下滚动到“安全性”部分。
+    3.  如果看到“已阻止使用 Visual Studio Code，因为其来源不明”，点击 **“仍要打开”**。
+    4.  如果在终端运行报错，可以尝试赋予执行权限：
+        ```bash
+        sudo xattr -rd com.apple.quarantine /Applications/Visual\ Studio\ Code.app
+        ```
+        (执行后输入你的开机密码，注意输入时密码不会显示)
+
 ### 2. 安装 Python
 
 下载地址：https://www.python.org/downloads/
 
 - 推荐版本：Python 3.10+
-- **Windows 用户**：安装时勾选 "Add Python to PATH"
 
 ### 3. 安装 esptool
 
@@ -96,25 +62,12 @@ pip install esptool
 
 ### 2. 确认串口号
 
-**macOS/Linux：**
 ```bash
-ls /dev/tty.*
-# 或
-ls /dev/cu.*
+ls /dev/tty.*    #大概率为tty.usbserial-10
+
 ```
 
-**Windows：**
-```cmd
-mode COM:
-```
-
-### 3. 进入烧录模式
-
-1. 将 GPIO0 接到 GND
-2. 重新插拔 USB（或按复位键）
-3. 松开 GPIO0（此时已进入烧录模式）
-
-### 4. 擦除并刷入
+### 3. 烧录
 
 替换 `<PORT>` 为你的串口号：
 
@@ -128,11 +81,7 @@ esptool.py --port <PORT> --baud 460800 write_flash --flash_size=detect 0 firmwar
 
 **示例：**
 ```bash
-# macOS
 esptool.py --port /dev/tty.usbserial-110 --baud 460800 write_flash --flash_size=detect 0 esp8266-20240105-v1.22.1.bin
-
-# Windows
-esptool.py --port COM3 --baud 460800 write_flash --flash_size=detect 0 esp8266-20240105-v1.22.1.bin
 ```
 
 看到 `Hash of data verified.` 表示刷入成功！
@@ -143,101 +92,58 @@ esptool.py --port COM3 --baud 460800 write_flash --flash_size=detect 0 esp8266-2
 
 ### 1. 连接开发板
 
-1. 断开 GPIO0 和 GND 的连接（运行模式）
-2. 重新插拔 USB
-3. VS Code 左下角会显示 **"Pico Disconnected"**
-4. 点击 → 选择你的串口 → 等待连接
-5. 显示 **"Pico Connected"** 绿色状态即成功
-
-### 2. 打开 REPL
-
-- 按 `Ctrl+Shift+P`
-- 输入 **"MicroPico: Open REPL"**
-- 看到 `>>>` 提示符即可开始交互
-
-### 3. 常用快捷键
-
-| 操作 | 快捷键 |
-|------|--------|
-| 上传当前文件 | `Ctrl+Shift+P` → Upload current file |
-| 上传项目 | `Ctrl+Shift+P` → Upload project |
-| 打开 REPL | `Ctrl+Shift+P` → Open REPL |
-| 软复位 | REPL 中按 `Ctrl+D` |
-
----
-
-## 📁 项目结构
-
-```
-esp8266-micropython-guide/
-├── README.md              # 本文件
-├── main.py               # 主程序入口
-├── boot.py               # 启动配置（网络、初始化）
-├── config.py             # 配置文件（WiFi 密码等）
-├── lib/                  # 第三方库
-│   └── ...
-├── examples/             # 示例代码
-│   ├── 01_blink.py      # LED 闪烁
-│   ├── 02_wifi.py       # WiFi 连接
-│   ├── 03_webrepl.py    # WebREPL 配置
-│   └── 04_http_server.py # HTTP 服务器
-└── .gitignore           # Git 忽略文件
-```
-
----
-
-## 🚀 快速开始
-
-### 1. 克隆仓库
-
+1. 打开vscode
+2. 插入 USB
+3. 按快捷键 ```   command + shift + p ```
+4. 在输入框中输入
 ```bash
-git clone https://github.com/你的用户名/esp8266-micropython-guide.git
-cd esp8266-micropython-guide
+   MicroPico: Connect
 ```
-
-### 2. 修改配置
-
-编辑 `config.py`，填入你的 WiFi 信息：
-
-```python
-WIFI_SSID = "你的WiFi名称"
-WIFI_PASSWORD = "你的WiFi密码"
+5. terminal显示类似
+```bash
+MicroPython v1.20.0 on 2023-04-26; ESP module with ESP8266
+Type "help()" for more information or .help for custom vREPL commands.
+>>> 
 ```
+  看到有     >>>     的    REPL    交互框即成功
 
-### 3. 上传到开发板
+### 2. 编程与测试
 
-1. VS Code 连接串口
-2. 右键点击 `main.py` → **Upload to Pico**
-3. 或者按 `Ctrl+Shift+P` → **MicroPico: Upload current file**
-
-### 4. 运行
-
-**方式一：REPL 中运行**
-```python
-exec(open("main.py").read())
+1.点击左上角文件图标的EXPLORER
+2.选择文件夹创建项目
+3.新建   .py  文件，编写代码
+4.按command + s 保存文件
+5.右键文件选择
+```bash
+Upload file to Pico        #载入文件
+Run current file on Pico   #运行文件                   
 ```
+6.REPL终端按下 ctrl + c 停止当前程序运行
+---
 
-**方式二：软复位自动运行**
-- REPL 中按 `Ctrl+D`
-- 或重新插拔 USB
+
+---
+
+
 
 ---
 
 ## 💡 示例代码
 
-### 示例 1：LED 闪烁
+### 示例 1：LED 闪烁（课程代码）
 
 ```python
-from machine import Pin
 import time
+from machine import Pin
 
-led = Pin(2, Pin.OUT)  # GPIO2，板载 LED
+led=Pin(4,Pin.OUT)        #建立LED对象，与GPIO4连接
 
 while True:
-    led.value(0)  # 点亮（低电平有效）
-    time.sleep(0.5)
-    led.value(1)  # 熄灭
-    time.sleep(0.5)
+  led.value(1)            #设置GPIO4为高电平
+  time.sleep(0.5)       #设置时间间隔
+  led.value(0)            #设置GPIO4为低电平
+  time.sleep(0.5)       #设置时间间隔
+
 ```
 
 ### 示例 2：WiFi 连接
