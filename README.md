@@ -102,7 +102,7 @@ MicroPython v1.20.0 on 2023-04-26; ESP module with ESP8266
 Type "help()" for more information or .help for custom vREPL commands.
 >>> 
 ```
-  看到有  ** >>> **  的 ** REPL ** 交互框即成功
+  看到有     >>>     的    REPL    交互框即成功
 
 ### 2. 编程与测试
 
