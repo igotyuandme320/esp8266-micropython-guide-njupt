@@ -8,7 +8,6 @@
 
 ## 📋 目录
 
-- [接线图](#接线图)
 - [软件安装](#软件安装)
 - [刷入固件](#刷入固件)
 - [VS Code 配置](#vs-code-配置)
@@ -31,12 +30,22 @@
 
 下载地址：https://code.visualstudio.com/
 
+macOS 的安全机制有时会拦截非 App Store 的应用。
+*   如果打开时提示“无法打开，因为无法验证开发者”，请尝试：
+    1.  打开 **系统设置** -> **隐私与安全性**。
+    2.  向下滚动到“安全性”部分。
+    3.  如果看到“已阻止使用 Visual Studio Code，因为其来源不明”，点击 **“仍要打开”**。
+    4.  如果在终端运行报错，可以尝试赋予执行权限：
+        ```bash
+        sudo xattr -rd com.apple.quarantine /Applications/Visual\ Studio\ Code.app
+        ```
+        (执行后输入你的开机密码，注意输入时密码不会显示)
+
 ### 2. 安装 Python
 
 下载地址：https://www.python.org/downloads/
 
 - 推荐版本：Python 3.10+
-- **Windows 用户**：安装时勾选 "Add Python to PATH"
 
 ### 3. 安装 esptool
 
@@ -64,25 +73,12 @@ pip install esptool
 
 ### 2. 确认串口号
 
-**macOS/Linux：**
 ```bash
 ls /dev/tty.*
-# 或
-ls /dev/cu.*
+
 ```
 
-**Windows：**
-```cmd
-mode COM:
-```
-
-### 3. 进入烧录模式
-
-1. 将 GPIO0 接到 GND
-2. 重新插拔 USB（或按复位键）
-3. 松开 GPIO0（此时已进入烧录模式）
-
-### 4. 擦除并刷入
+### 3. 烧录
 
 替换 `<PORT>` 为你的串口号：
 
@@ -96,12 +92,8 @@ esptool.py --port <PORT> --baud 460800 write_flash --flash_size=detect 0 firmwar
 
 **示例：**
 ```bash
-# macOS
 esptool.py --port /dev/tty.usbserial-110 --baud 460800 write_flash --flash_size=detect 0 esp8266-20240105-v1.22.1.bin
 
-# Windows
-esptool.py --port COM3 --baud 460800 write_flash --flash_size=detect 0 esp8266-20240105-v1.22.1.bin
-```
 
 看到 `Hash of data verified.` 表示刷入成功！
 
@@ -110,7 +102,7 @@ esptool.py --port COM3 --baud 460800 write_flash --flash_size=detect 0 esp8266-2
 ## ⚙️ VS Code 配置
 
 ### 1. 连接开发板
-
+as
 1. 断开 GPIO0 和 GND 的连接（运行模式）
 2. 重新插拔 USB
 3. VS Code 左下角会显示 **"Pico Disconnected"**
