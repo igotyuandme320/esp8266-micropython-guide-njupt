@@ -1,4 +1,4 @@
-# ESP8266 MicroPython 开发指南
+# 南京邮电大学ESP8266 MicroPython 开发指南（MAC）
 
 [![MicroPython](https://img.shields.io/badge/MicroPython-3.4+-green.svg)](https://micropython.org/)
 [![ESP8266](https://img.shields.io/badge/ESP8266-ESP--12F-blue.svg)](https://www.espressif.com/)
@@ -184,40 +184,7 @@ esp8266-micropython-guide/
 
 ---
 
-## 🚀 快速开始
 
-### 1. 克隆仓库
-
-```bash
-git clone https://github.com/你的用户名/esp8266-micropython-guide.git
-cd esp8266-micropython-guide
-```
-
-### 2. 修改配置
-
-编辑 `config.py`，填入你的 WiFi 信息：
-
-```python
-WIFI_SSID = "你的WiFi名称"
-WIFI_PASSWORD = "你的WiFi密码"
-```
-
-### 3. 上传到开发板
-
-1. VS Code 连接串口
-2. 右键点击 `main.py` → **Upload to Pico**
-3. 或者按 `Ctrl+Shift+P` → **MicroPico: Upload current file**
-
-### 4. 运行
-
-**方式一：REPL 中运行**
-```python
-exec(open("main.py").read())
-```
-
-**方式二：软复位自动运行**
-- REPL 中按 `Ctrl+D`
-- 或重新插拔 USB
 
 ---
 
