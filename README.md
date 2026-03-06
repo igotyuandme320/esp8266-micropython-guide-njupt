@@ -1,4 +1,4 @@
-# 南京邮电大学ESP8266 MicroPython 开发指南（适用于MAC完成电工电子实践课程）
+# 南京邮电大学电工实践课程 ESP8266 MicroPython 开发指南（适用于MAC）
 
 [![MicroPython](https://img.shields.io/badge/MicroPython-3.4+-green.svg)](https://micropython.org/)
 [![ESP8266](https://img.shields.io/badge/ESP8266-ESP--12F-blue.svg)](https://www.espressif.com/)
