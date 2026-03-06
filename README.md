@@ -1,16 +1,12 @@
-# 南京邮电大学电工实践课程 ESP8266 MicroPython 开发指南（适用于MAC）
+# 南京邮电大学电工实践课程 ESP8266 MicroPython 开发指南（适用于macOS）
 
 [![MicroPython](https://img.shields.io/badge/MicroPython-3.4+-green.svg)](https://micropython.org/)
 [![ESP8266](https://img.shields.io/badge/ESP8266-ESP--12F-blue.svg)](https://www.espressif.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-从零开始使用 VS Code + MicroPico 插件开发 ESP8266（ESP-12F）的完整教程。
+从零开始使用 VS Code + MicroPico 插件开发 ESP8266（ESP-12F）的教程。
 
 > 📚 **[查看完整github仓库](https://github.com/igotyuandme320/esp8266-micropython-guide-njupt/tree/master)**
-
-## 📋 目录
-
-
 ---
 
 ## 💻 软件安装
@@ -45,7 +41,7 @@ pip install esptool
 ### 4. 安装 MicroPico 插件
 
 1. 打开 VS Code
-2. 点击左侧扩展图标（或按 `Ctrl+Shift+X`）
+2. 点击左侧扩展图标（或按 `Command+Shift+X`）
 3. 搜索 **MicroPico**
 4. 点击安装
 
