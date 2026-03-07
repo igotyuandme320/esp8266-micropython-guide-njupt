@@ -107,11 +107,11 @@ Type "help()" for more information or .help for custom vREPL commands.
 
 ### 2. 编程与测试
 
-    1.点击左上角文件图标的EXPLORER
-    2.选择文件夹创建项目
-    3.新建   .py  文件，编写代码
-    4.按command + s 保存文件
-    5.右键文件选择
+>1.点击左上角文件图标的EXPLORER
+>2.选择文件夹创建项目
+>3.新建   .py  文件，编写代码
+>4.按command + s 保存文件
+>5.右键文件选择
 ```bash
 Upload file to Pico        #载入文件
 Run current file on Pico   #运行文件                   
